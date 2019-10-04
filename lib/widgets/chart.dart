@@ -1,4 +1,4 @@
-import '../models/transactions.dart';
+import '../models/Transactions.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
@@ -11,15 +11,15 @@ class Chart extends StatelessWidget {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
       double totalSum;
-      for(int i; i < recentTransactions.length; i++){
-        if(recentTransactions[i].date.day == weekDay.day &&
-        recentTransactions[i].date.month == weekDay.month &&
-        recentTransactions[i].date.year == weekDay.year){
+      for (int i; i < recentTransactions.length; i++) {
+        if (recentTransactions[i].date.day == weekDay.day &&
+            recentTransactions[i].date.month == weekDay.month &&
+            recentTransactions[i].date.year == weekDay.year) {
           totalSum += recentTransactions[i].amount;
         }
       }
       return {
-        'day': DateFormat.E().format(weekDay),
+        'day': DateFormat.E().format(weekDay).substring(0,1),
         'amount': totalSum};
     });
   }
@@ -30,9 +30,9 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       child: Row(
-        children: <Widget>[
-
-        ],
+          children: groupTransactionValues.map((data) {
+            return Text('${data['day']}: ${data['amount']}');
+          }).toList()
       ),
     );
   }
