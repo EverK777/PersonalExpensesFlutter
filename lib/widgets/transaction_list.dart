@@ -9,20 +9,28 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       height: 400,
-        child: userTransactions.isEmpty ? Column(children: <Widget>[
-          Text('No transactions added yet!', style: Theme.of(context).textTheme.title,),
-          Container(
-            height:150,
-            margin:EdgeInsets.symmetric(
-              vertical:30
-            ) ,
-            child:Image.asset('assets/images/waiting.png', fit: BoxFit.cover,) ,)
-        ],)
-      :  ListView.builder(
-        itemBuilder: (ctx, index) {
-          return Card(
+      child: userTransactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                Text(
+                  'No transactions added yet!',
+                  style: Theme.of(context).textTheme.title,
+                ),
+                Container(
+                  height: 150,
+                  margin: EdgeInsets.symmetric(vertical: 30),
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                /* return Card(
             child: Row(
               children: <Widget>[
                 Container(
@@ -58,11 +66,31 @@ class TransactionList extends StatelessWidget {
                 )
               ],
             ),
-          );
-        },
-        itemCount: userTransactions.length,
-        physics: BouncingScrollPhysics(),
-      ),
+          );*/
+                return Card(
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    child: ListTile(
+                  leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: FittedBox(
+                            child: Text('\$${userTransactions[index].amount}')),
+                      )),
+                  title: Text(
+                    userTransactions[index].title,
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  subtitle: Text(
+                    DateFormat.yMMMd().format(userTransactions[index].date),
+                  ),
+                ));
+              },
+              itemCount: userTransactions.length,
+              //ios
+              physics: BouncingScrollPhysics(),
+            ),
     );
   }
 }

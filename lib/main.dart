@@ -19,11 +19,13 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.deepOrange,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
-                  title: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              )),
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                button: TextStyle(color: Colors.white),
+              ),
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
                     title: TextStyle(
@@ -44,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transactions> _userTransactions = [
-   /* Transactions(
+    /* Transactions(
       id: 't1',
       title: 'New Shoes',
       amount: 69.99,
@@ -58,8 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ),*/
   ];
 
-  List<Transactions> get _reccentTransaction{
-    return _userTransactions.where((tx){
+  List<Transactions> get _recentTransaction {
+    return _userTransactions.where((tx) {
       return tx.date.isAfter(
         DateTime.now().subtract(
           Duration(days: 7),
@@ -113,9 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
+          // ios scroll
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_reccentTransaction),
+            Chart(_recentTransaction),
             TransactionList(
               userTransactions: _userTransactions,
             )

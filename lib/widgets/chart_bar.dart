@@ -3,15 +3,25 @@ import 'package:flutter/material.dart';
 class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
-  final double spendingPcoFTotal;
+  final double _spendingPcoFTotal;
 
-  ChartBar(this.label, this.spendingAmount, this.spendingPcoFTotal);
+  ChartBar(this.label, this.spendingAmount, this._spendingPcoFTotal);
+
+  double get spendingPcoFTotal {
+    if (_spendingPcoFTotal.isNaN) {
+      return 0;
+    }
+    return _spendingPcoFTotal;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('\$${spendingAmount.toStringAsFixed(0)}'),
+        Container(
+          height: 20,
+          child: FittedBox(child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
+        ),
         SizedBox(
           height: 4,
         ),
